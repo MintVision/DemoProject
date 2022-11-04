@@ -9,11 +9,11 @@ namespace MintIIVisionServiceDemoApp.Responses
         /// <summary>
         /// Verification link that was created
         /// </summary>
-        public string VerificationLink { get; set; }
+        public string VerifyLink { get; set; }
         /// <summary>
         /// Verification Id that was created
         /// </summary>
-        public string VerificationId { get; set; }
+        public string VerifyId { get; set; }
 
         
 }

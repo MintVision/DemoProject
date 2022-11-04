@@ -9,5 +9,6 @@ namespace MintIIVisionServiceDemoApp
         public string Password { get; set; }
         public string TenantName { get; set; }
         public string DeviceName { get; set; }
+        public string User { get; set; }
     }
 }
