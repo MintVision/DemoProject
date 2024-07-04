@@ -1,24 +1,24 @@
 ﻿using System;
 using RestSharp;
-using MintIIVisionServiceDemoApp.Demos;
+using VisionAiServiceDemoApp.Demos;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace MintIIVisionServiceDemoApp
+namespace VisionAiServiceDemoApp
 {
     class Program
     {
-        private static RestClient _client = new RestClient("https://service.visionaisuite.net/v1.8/api/");
+        private static RestClient _client = new RestClient("https://service.visionaisuite.net/v2.0/api/");
 
         //TODO:
         //NB: set your tenant details here!
         private const string tenantKey = ""; 
         private const string tenantName = "";
-        private const string deviceName = "demoProject";
+        private const string deviceName = "DemoDevice";  
 
         public static void Main(string[] args)
         {
-            Console.WriteLine("This is a console app used to demonstrate features of Mint Vision Service.");
+            Console.WriteLine("This is a console app used to demonstrate features of Vision AI Service.");
 
             //This token is needed to make any calls to the service and can be re-used after generation
             var visionServiceToken = GenerateToken(tenantKey, tenantName, deviceName);
@@ -26,29 +26,10 @@ namespace MintIIVisionServiceDemoApp
                 Console.WriteLine("Ensure that tenant name and tenant key supplied are correct.");
             else
             {
-                Console.WriteLine("Please enter the demo which you would like to see. \n1.Initiate Verification Demo \n2.View Verification Result Demo \n3.Upload and Process Document Demo \n4.Cancel");
+                UploadAndListImages.UploadImage(_client, visionServiceToken);
 
-                var userAnswer = Console.ReadLine();
-                if (userAnswer == "1")
-                {
-                    Console.WriteLine("This demonstrates how a verification check is sent against a person using MintVision Service");
-                    Verification.VerifyPerson(_client, visionServiceToken);
-                }
-                else if (userAnswer == "2")
-                {
-                    Console.WriteLine("This demonstrates how to check verification result using MintVision Service");
-                    Verification.VerifyResult(_client, visionServiceToken);
-                }
-                else if (userAnswer == "3")
-                {
-                    Console.WriteLine("This demonstrates how a document is uploaded, classified and data extracted using MintVision Service");
-                    Document.UploadAndProcessDocument(_client, visionServiceToken);
-                }
-                else
-                {
-                    Console.WriteLine("Press any key to cancel");
-                    Console.ReadKey();
-                }
+                UploadAndListImages.ListImages(_client, visionServiceToken);
+                
             }
         }
 
@@ -57,7 +38,7 @@ namespace MintIIVisionServiceDemoApp
         /// </summary>
         private static string GenerateToken(string tenantKey, string tenantName, string deviceName)
         {            
-            var request = new RestRequest("token/generate", Method.POST);
+            var request = new RestRequest("token/generate", Method.Post);
             request.AddHeader("Content-Type", "application/json");            
 
             request.AddJsonBody(new TokenGenerateRequest() { Password = tenantKey, TenantName = tenantName, DeviceName = deviceName, User = "" });

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MintIIVisionServiceDemoApp
+namespace VisionAiServiceDemoApp
 {
     public class TokenGenerateRequest
     {
